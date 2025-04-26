@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedia</title>
+    <link rel="icon" href="./pedia.png" type="image/png">
+    <meta property="og:title" content="Pedia">
+    <meta property="og:description" content="A free (wikipedia like) encyclopedia. People can add anything to this encyclopedia.">
+    <meta property="og:image" content="./pedia.png">
+    <meta property="og:type" content="website">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+        }
+        .header img {
+            width: 200px;
+        }
+        .search-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .search-container input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #254a8a;
+        }
+        .articles-container {
+            margin: 50px auto;
+            width: 80%;
+            text-align: left;
+        }
+        .articles-container h2 {
+            text-align: center;
+        }
+        .articles-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .articles-container li {
+            margin: 10px 0;
+        }
+        .articles-container a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .articles-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/create-article">
+            <button style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+                Create an article
+            </button>
+        </a>
+    </div>
+    <div class="header">
+        <img src="./pedia.png" alt="Pedia Logo">
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Search Pedia">
+        <button>Search</button>
+
+        <script>
+            const searchInput = document.querySelector('.search-container input[type="text"]');
+            const searchButton = document.querySelector('.search-container button');
+
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `/search/${encodeURIComponent(query)}`;
+                }
+            }
+
+            searchButton.addEventListener('click', performSearch);
+
+            searchInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        </script>
+    </div>
+    <div class="articles-container">
+        <h2>Recent Articles</h2>
+        <ul>
+            <% articles.forEach(article => { %>
+                <li>
+                    <a href="/article/<%= article.id %>">
+                        <strong><%= article.name %></strong> by <%= article.author %>
+                    </a>
+                    <p style="margin: 5px 0; color: #555;"><%= article.snippet %>...</p>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>

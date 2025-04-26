@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="icon" href="./pedia.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+        header img {
+            margin-right: 10px;
+            width: 50px;
+        }
+        header a {
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        main {
+            margin: 50px auto;
+            width: 80%;
+            text-align: left;
+        }
+        h1 {
+            font-size: 32px;
+            color: #333;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .results li {
+            margin: 10px 0;
+        }
+        .results a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .results a:hover {
+            text-decoration: underline;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pagination a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .pagination a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/">Pedia</a>
+    </header>
+    <main>
+        <h1>Search Results</h1>
+        <div class="results">
+            <ul>
+                <% results.forEach(result => { %>
+                    <li>
+                        <a href="/article/<%= result.id %>">
+                            <strong><%= result.name %></strong> by <%= result.author %>
+                        </a>
+                        <p style="margin: 5px 0; color: #555;"><%= result.snippet %>...</p>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+        <div class="pagination">
+            <% if (currentPage > 1) { %>
+                <a href="/search/<%= query %>?page=<%= currentPage - 1 %>">Previous</a>
+            <% } %>
+            <% if (hasMore) { %>
+                <a href="/search/<%= query %>?page=<%= currentPage + 1 %>">Next</a>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Article</title>
+    <link rel="icon" href="./pedia.png" type="image/png">
+    <meta property="og:title" content="Create an Article @ Pedia">
+    <meta property="og:description" content="Create your own article @ Pedia!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./pedia.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        header a {
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        main {
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/">Pedia</a>
+    </header>
+    <main>
+        <h1>Create an article</h1>
+        <form action="/create-article" method="POST">
+            <div>
+                <label for="authors">Author(s):</label>
+                <input type="text" id="authors" name="authors" placeholder="Author(s) here..."
+                    style="height: 30px; width: 300px; margin-top: 10px;">
+            </div>
+            <div>
+                <label for="title">Article Title:</label>
+                <input type="text" id="title" name="title" placeholder="Title here..."
+                    style="height: 30px; width: 200px; margin-top: 10px;">
+            </div>
+            <div>
+                <label for="articleText">Article Text:</label>
+                <textarea id="articleText" name="articleText" placeholder="Write your article here..."
+                    style="width: 400px; height: 200px; margin-top: 10px;"></textarea>
+                <div id="charCount" style="margin-top: 5px; font-size: 14px; color: #555;">
+                    1,000,000 characters remaining
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Submit Article</button>
+            </div>
+        </form>
+        
+        <script>
+            const textarea = document.getElementById('articleText');
+            const charCount = document.getElementById('charCount');
+            const maxChars = 1000000;
+
+            textarea.addEventListener('input', () => {
+                const remaining = maxChars - textarea.value.length;
+                charCount.textContent = `${remaining.toLocaleString()} characters remaining`;
+
+                if (remaining < 0) {
+                    textarea.value = textarea.value.slice(0, maxChars);
+                    charCount.textContent = `0 characters remaining`;
+                }
+            });
+        </script>
+    </main>
+</body>
+</html>
